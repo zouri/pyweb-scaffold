@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>后台管理登陆登陆</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            color: #fff;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+
+        .wrap1 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto
+        }
+
+        /*把整个屏幕真正撑开--而且能自己实现居中*/
+        .main_content {
+            background: url(/static/images/main_bg_login.png) repeat;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            float: none;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .login_btn {
+            display: block;
+            background: #3872f6;
+            color: #fff;
+            font-size: 15px;
+            width: 100%;
+            line-height: 50px;
+            border-radius: 3px;
+            border: none;
+        }
+
+        .login_input {
+            width: 100%;
+            border: 1px solid #3872f6;
+            border-radius: 3px;
+            line-height: 40px;
+            padding: 2px 5px 2px 30px;
+            background: none;
+        }
+
+        .icon_font {
+            position: absolute;
+            bottom: 15px;
+            left: 10px;
+            font-size: 18px;
+            color: #3872f6;
+        }
+
+        .font16 {
+            font-size: 16px;
+        }
+
+        .mg-t20 {
+            margin-top: 20px;
+        }
+
+        @media (min-width: 200px) {
+            .pd-xs-20 {
+                padding: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .pd-sm-50 {
+                padding: 50px;
+            }
+        }
+
+        .error {
+            color: red;
+            display: none;
+        }
+
+    </style>
+
+</head>
+<body style="background:url(/static/images/bg_login.jpg) no-repeat;">
+
+<div class="container wrap1" style="height:450px;">
+    <div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
+        <p class="text-center font16">用户登录</p>
+        <span class="text-center error"></span>
+        <div class="form-group mg-t20">
+            <i class="icon-user icon_font"></i>
+            <input type="text" class="login_input" id="Username" placeholder="请输入用户名"/>
+        </div>
+
+        <div class="form-group mg-t20">
+            <i class="icon-lock icon_font"></i>
+            <input type="password" class="login_input" id="Password1" placeholder="请输入密码"/>
+        </div>
+
+        <div class="checkbox mg-b25">
+
+        </div>
+
+        <button class="login_btn input_login" id="input_password">登 录</button>
+
+        <div class="col-lg-6 pull-right">
+            <br/>
+            <button id="wx" class="btn btn-success">还可以使用企业微信登陆</button>
+        </div>
+
+    </div>
+
+    <script>
+        function getQueryVariable(variable) {
+            let query = window.location.search.substring(1);
+            let vars = query.split("&");
+            for (let i = 0; i < vars.length; i++) {
+                let pair = vars[i].split("=");
+                if (pair[0] === variable) {
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+
+        $(function () {
+            $('.input_login').on('click', function () {
+                $('.error').hide();
+                if ($('#Username').val() !== '' && $('#Password1').val() !== '') {
+                    $.post('/login_manger/login', {
+                        username: $('#Username').val(),
+                        password: $('#Password1').val()
+                    }, function (data) {
+                        if (data['status_code'] === 200) {
+                            if (getQueryVariable('next') === false || getQueryVariable('next') < 0) {
+                                window.location.href = '/';
+                            } else {
+                                window.location.href = decodeURIComponent(getQueryVariable("next"));
+                            }
+                        } else {
+                            $('.error').show();
+                            $('.error').html(data['content']);
+                            $('.error').fadeIn()
+                        }
+
+                    });
+                } else {
+                    $('.error').show();
+                    $('.error').html('用户名或密码不可为空');
+                    $('.error').fadeIn()
+                }
+            });
+
+            $(document).ready(function () {
+                $('input').keypress(function(event){
+                if (event.keyCode === 13) {
+                    $('.input_login').click();
+                }
+            });
+        });
+
+        let isWeixin = function () {
+            let ua = navigator.userAgent.toLowerCase();
+            return ua.match(/MicroMessenger/i) == "micromessenger";
+        };
+        $('#wx').on('click', function () {
+            if (isWeixin()) {
+                let _search = window.location.search.split('next=')[1];
+                if (_search !== undefined) {
+                    let _url = _search.split(window.location.host)[1].replace(/%2F/g, 'lujing');
+                    window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww6fef22f69c104461&redirect_uri=http%3a%2f%2falert.easemob.com%2fapi%2fusers%2fwx%2ftoken%2f&response_type=code&scope=snsapi_privateinfo&agentid=1000002&state=' + _url + '#wechat_redirect';
+                } else {
+                    window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww6fef22f69c104461&redirect_uri=http%3a%2f%2falert.easemob.com%2fapi%2fusers%2fwx%2ftoken%2f&response_type=code&scope=snsapi_privateinfo&agentid=1000002&state=lujing#wechat_redirect';
+                }
+            } else {
+                let _search = window.location.search.split('next=')[1];
+                if (_search !== undefined) {
+                    let _url = _search.split(window.location.host)[1].replace(/%2F/g, 'lujing');
+                    window.location = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=ww6fef22f69c104461&agentid=1000002&redirect_uri=http%3a%2f%2falert.easemob.com%2fapi%2fusers%2fwx%2ftoken%2f&state=' + _url;
+                } else {
+                    window.location = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=ww6fef22f69c104461&agentid=1000002&redirect_uri=http%3a%2f%2falert.easemob.com%2fapi%2fusers%2fwx%2ftoken%2f&state=lujing';
+                }
+            }
+        })
+        })
+        ;
+    </script>
+
+    {#<!-- 页脚 -->#}
+    {% include 'footer.html' %}
+    {#<!-- 也叫结束 -->#}、
+
+</div>
+
+</body>
+</html>

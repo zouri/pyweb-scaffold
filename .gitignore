@@ -1,0 +1,7 @@
+/.idea/
+*.pyc
+*.logs
+*.md
+/test/
+/migrations/
+/static/upload_file/*
