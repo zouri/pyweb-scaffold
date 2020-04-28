@@ -1,7 +1,7 @@
 /.idea/
 *.pyc
 *.logs
-*.md
+#*.md
 /test/
 /migrations/
 /static/upload_file/*
