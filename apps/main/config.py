@@ -34,6 +34,9 @@ class DevelopmentConfig(BaseConfig):
     LOG_LEVEL = 'DEBUG'
     LOG_FORMAT = '[%(asctime)s %(processName)s %(threadName)s %(levelname)s]: %(message)s'
 
+    # 上传文件配置
+    UPLOAD_PATH = '/Users/sun/Project/project-template/website-template/background/static/upload_file/'
+
 
 class TestingConfig(BaseConfig):
     DEBUG = True
@@ -58,6 +61,8 @@ class ProductionConfig(BaseConfig):
     LOG_LEVEL = 'INFO'
     LOG_FORMAT = '[%(asctime)s %(processName)s %(threadName)s %(levelname)s]: %(message)s'
 
+    # 上传文件配置
+    UPLOAD_PATH = '/Users/sun/Project/project-template/website-template/background/static/upload_file/'
 
 config = {
     'default': DevelopmentConfig,

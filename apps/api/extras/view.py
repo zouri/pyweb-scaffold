@@ -22,7 +22,7 @@ class ImageUpload(Resource):
         img = request.files['file']
         file_name = uuid1().hex + '.' + secure_filename(img.filename).split('.')[-1]
         img.save(os.path.join(upload_path, file_name))
-        url = '/static/upload/' + file_name
+        url = '/static/upload_file/' + file_name
         return {'error_code': 0, 'message': 'success', 'data': {'url': url}}
 
 

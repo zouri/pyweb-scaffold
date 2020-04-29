@@ -24,17 +24,19 @@ class DocumentsManager(Resource):
         args = request.args
         if not args:
             args = {}
-
         page_number = int(args.get('page_number', 1))
         limit = int(args.get('limit', 15))
         if page_number < 1:
             page_number = 1
         offset = page_number * limit - limit
         limit = offset + limit
-        print(offset, limit, '开始实施')
+        # print(offset, limit, '开始实施')
         # 栏目名称
-        # param = [Document.column == args.get('column', 'news')]
-        param = []
+        column_id = int(args.get('column', 0))
+        if column_id != 0:
+            param = [Document.column_id == column_id]
+        else:
+            param = []
         # 排序字段
         sort_field_str = args.get('sort', 'id')
         if sort_field_str not in ['id', 'create_time', 'pub_time']:
@@ -85,10 +87,10 @@ class DocumentsManager(Resource):
     def delete(self):
         data = request.json
         if not data:
-            return {'error_code': 0, 'message': 'not change'}
+            return {'error_code': 304, 'message': 'not change'}, 304
         docs = Document.query.filter(Document.id.in_(data))
         [db.session.delete(a) for a in docs]
-        # db.session.commit()
+        db.session.commit()
         return {'error_code': 0, 'message': f'document {data} is deleted'}
 
 

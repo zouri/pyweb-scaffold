@@ -34,4 +34,4 @@ class Column(db.Model):
         }
 
     def __repr__(self):
-        return f"<Column '{self.column_name}'>"
+        return f"<Column '{self.name}'>"

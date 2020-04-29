@@ -14,8 +14,10 @@ from bs4 import BeautifulSoup
 from apps.main import db
 from apps.api.user.service import login_required
 from apps.models.column import Column
+from apps.models.document import Document
 
 
+# 获取树状结构的栏目数据
 def get_child(parent_id=0, data=None):
     if data is None:
         data = []
@@ -34,8 +36,10 @@ class ColumnsManager(Resource):
 
     # @login_required
     def get(self):
-        data = get_child()
-        return {'error_code': 0, 'message': 'success', 'data': data}
+        # data = get_child()
+        col_data = Column.query.filter_by(parent_id=0).all()
+        rep_data = [c.to_json() for c in col_data]
+        return {'error_code': 0, 'message': 'success', 'data': rep_data}
 
     # @login_required
     def post(self):
@@ -43,24 +47,38 @@ class ColumnsManager(Resource):
         data = request.json
         print(data, 'data')
         try:
-            parent_id = data.get('parent_id', 0)
-            if parent_id != 0:
-                ColumnManager().get_a_col(parent_id)
             new_col = Column(
                 name=data['name'],
                 title=data['title'],
-                parent_id=parent_id
             )
             db.session.add(new_col)
             db.session.commit()
-            colInfo = Column.query.filter_by(column_name=data['column_name']).first()
+            colInfo = Column.query.filter_by(name=data['name']).first()
         except KeyError as e:
+            print(e, '400040404040')
             return abort(400)
         except Exception as e:
+            print(e)
             return abort(500)
 
         return {'error_code': 0, 'message': 'column is created', 'data': colInfo.to_json()}
 
+    def delete(self):
+        data = request.json
+        print(data)
+        if not data or not isinstance(data, list):
+            return {'error_code': 0, 'message': 'not change'}
+        try:
+            doc_s = Document.query.filter(Document.column_id.in_(data)).all()
+            if len(doc_s) > 0:
+                return {'error_code': 304, 'message': 'not modified'}, 304
+            cols = Column.query.filter(Column.id.in_(data)).all()
+            [db.session.delete(d) for d in cols]
+            db.session.commit()
+            return {'error_code': 0, 'message': f'column {data} is deleted'}, 200
+        except Exception as e:
+            print(e)
+            return abort(500)
 
 
 class ColumnManager(Resource):
