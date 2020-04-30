@@ -27,15 +27,6 @@ def generate_img_captcha(char_num=4):
     return captcha_str, img_base64.__str__()
 
 
-# def generate_captcha(char_num=4):
-#     captcha_str = ''.join(random.choice( '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(4))
-#     image = ImageCaptcha().generate_image(captcha_str)
-#     buffer = BytesIO()
-#     image.save(buffer, format='PNG')
-#     data = buffer.getvalue()
-#     return 'data:image/png;base64,' + base64.b64encode(data).decode()
-
-
 def sms_code():
     pass
 

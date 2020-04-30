@@ -26,7 +26,7 @@ class Document(db.Model):
     create_time = db.Column(db.DateTime, nullable=False)
     pub_time = db.Column(db.DateTime)
     column = db.relationship('Column', backref=db.backref('document'))
-    author = db.relationship('Column', backref=db.backref('document'))
+    author = db.relationship('User', backref=db.backref('document'))
 
 
     @property

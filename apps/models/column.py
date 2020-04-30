@@ -16,10 +16,10 @@ class Column(db.Model):
     """
     __tablename__ = "column"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
+    id = db.Column(db.String(100), primary_key=True, nullable=False)
     title = db.Column(db.String(100), nullable=False)
-    parent_id = db.Column(db.Integer, nullable=False, default=0)
+    parent_id = db.Column(db.String(100), nullable=False, default='root')
+    type = db.Column(db.String(20))
 
     __table_args__ = (
         UniqueConstraint('title', 'parent_id'),  # 同一栏目下目录标题唯一
@@ -28,10 +28,10 @@ class Column(db.Model):
     def to_json(self):
         return {
             'id': self.id,
-            'name': self.name,
             'title': self.title,
-            'parent_id': self.parent_id
+            'parent_id': self.parent_id,
+            'type': self.type,
         }
 
     def __repr__(self):
-        return f"<Column '{self.name}'>"
+        return f"<Column '{self.id}'>"
