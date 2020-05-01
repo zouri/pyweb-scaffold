@@ -65,7 +65,7 @@ class ColumnDao:
         """
         col = Column.query.filter(
             Column.id.in_([id_, 'root']) or (Column.parent_id == parent_id and Column.title == title)
-        ).first()
+        ).all()
         if col:
             return True
         else:

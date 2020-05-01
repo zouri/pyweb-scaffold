@@ -21,7 +21,7 @@ class ColumnService:
         :param data:
         :return:
         """
-        id, title, parent_id = data['id'], data['title'], data['parent_id']
+        id, title, parent_id = data['id'], data['title'], data.get('parent_id', 'root')
         if Dao.is_column_existe(id, title, parent_id):
             response_object = {
                 'status': 'fail',

@@ -5,7 +5,6 @@
 # Last Modified: x
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
-from uuid import uuid1
 from flask import request, abort, session, g
 from flask_restful import Resource, marshal_with, reqparse
 
@@ -29,7 +28,6 @@ class UserLogin(Resource):
 
 # 注销
 class UserLogout(Resource):
-    @login_required
     def post(self):
         return Service.logout()
 

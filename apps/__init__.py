@@ -19,35 +19,3 @@ app = create_app(os.getenv('RUN_ENV') or 'default')
 # 蓝图注册
 register_front_blueprints(app)
 register_apis_blueprints(app)
-
-
-@app.before_request
-def before_request():
-    before_process()
-
-
-@app.after_request
-def after_request(response):
-    return after_process(response)
-
-
-# 绑定意外情况
-@app.errorhandler(401)
-def unauthorized(e):
-    return jsonify({'message': 'Unauthorized, please check credential'}), 401
-
-
-@app.errorhandler(403)
-def permission_denied(e):
-    return jsonify({'message': 'Permission denied, FUCK 403'}), 403
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return jsonify({'message': 'Not found, I Love 404'}), 404
-
-
-@app.errorhandler(500)
-def internal_server_error(e):
-    return jsonify({'message': "I can not do it, Please try again alfred check"}), 500
-

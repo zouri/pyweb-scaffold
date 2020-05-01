@@ -11,10 +11,7 @@ from flask import request, abort, g
 from flask_restful import Resource, marshal_with
 from bs4 import BeautifulSoup
 
-from apps.main import db
 from apps.api.user.service import login_required
-from apps.models.column import Column
-from apps.models.document import Document
 from apps.service.column import ColumnService
 
 Service = ColumnService()
@@ -29,7 +26,7 @@ class ColumnsManager(Resource):
     # @login_required
     def post(self):
         """创建一个栏目"""
-        data = request.data
+        data = request.json
         return Service.add_column(data)
 
     def delete(self):

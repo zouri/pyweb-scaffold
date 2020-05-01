@@ -13,7 +13,12 @@ class BaseConfig:
     HOST = '127.0.0.1'
     PORT = 8080
 
-    URL_WHITE_LIST = ['abc', '/url']    # don't need to login
+    # don't need to login
+    URL_WHITE_LIST = [
+        '/apps/api/user/login',
+        '/url'
+    ]
+
     URL_BLACK_LIST = []
     IP_BLACK_LIST = []
 

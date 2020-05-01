@@ -13,7 +13,7 @@ from flask import current_app as _app
 from flask import session, request
 from flask_restful import Resource, reqparse
 
-from apps.utils.verification_code import *
+from apps.utils.verify import *
 
 
 class ImageUpload(Resource):

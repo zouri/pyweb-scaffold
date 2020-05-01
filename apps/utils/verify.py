@@ -11,6 +11,7 @@ import string
 from uuid import uuid1
 from io import BytesIO
 from captcha.image import ImageCaptcha
+# from apps.service.
 
 
 def generate_img_captcha(char_num=4):
