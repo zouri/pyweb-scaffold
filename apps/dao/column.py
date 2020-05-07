@@ -25,13 +25,17 @@ class ColumnDao:
             title=title,
             parent_id=parent_id,
         )
-        self.save_change(new_col)
+        print(new_col, 'abcdef')
+        self.save_changes(new_col)
+        # db.session.add(new_col)
+        # db.session.commit()
+        print(id_, 'abcdef')
         return self.get_a_column(id_)
 
     def del_column(self, column_id_list):
         column_list = Column.query.filter(Column.id.in_(column_id_list)).all()
         [db.session.delete(c) for c in column_list]
-        self.save_change()
+        self.save_changes()
         return True
 
     def get_a_column(self, column_id):
@@ -40,7 +44,8 @@ class ColumnDao:
         :param column_id: 栏目自定义ID
         :return: column Obj or None
         """
-        return Column.query.filter_by(column_id=column_id).first()
+        print('abcdef')
+        return Column.query.filter_by(id=column_id).first()
 
     def get_child_column(self, parent_id):
         """
@@ -50,8 +55,14 @@ class ColumnDao:
         """
         return Column.query.filter_by(parent_id=parent_id).all()
 
-    def save_change(self, data=None):
-        if not data:
+    @staticmethod
+    def save_changes(data=None):
+        """
+        保存数据库更改
+        :param data:
+        :return:
+        """
+        if data:
             db.session.add(data)
         db.session.commit()
 
@@ -64,7 +75,7 @@ class ColumnDao:
         :return:
         """
         col = Column.query.filter(
-            Column.id.in_([id_, 'root']) or (Column.parent_id == parent_id and Column.title == title)
+            Column.id == id_ or Column.id == 'root' or (Column.parent_id == parent_id and Column.title == title)
         ).all()
         if col:
             return True

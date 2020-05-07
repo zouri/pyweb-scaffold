@@ -6,6 +6,7 @@
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
 from bs4 import BeautifulSoup
+from sqlalchemy import UniqueConstraint
 
 from apps.main import db
 
@@ -16,10 +17,10 @@ class Document(db.Model):
     __tablename__ = "document"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), unique=True, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     content_text = db.Column(db.Text, nullable=False)
     content_html = db.Column(db.Text, nullable=False)
-    column_id = db.Column(db.Integer, db.ForeignKey('column.id'))
+    column_id = db.Column(db.String(100), db.ForeignKey('column.id'))
     author_id = db.Column(db.String(100), db.ForeignKey('user.uid'))
     status = db.Column(db.Integer, nullable=False, default=0)
     type = db.Column(db.Integer, nullable=False, default=0)
@@ -28,6 +29,9 @@ class Document(db.Model):
     column = db.relationship('Column', backref=db.backref('document'))
     author = db.relationship('User', backref=db.backref('document'))
 
+    __table_args__ = (
+        UniqueConstraint('title', 'column_id'),  # 同一栏目下文档标题唯一
+    )
 
     @property
     def content(self):

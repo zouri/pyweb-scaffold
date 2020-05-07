@@ -5,28 +5,31 @@
 # Last Modified: x
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
-from datetime import datetime
-from uuid import uuid1
+
 from flask import request, abort, g
 from flask_restful import Resource, marshal_with
-from bs4 import BeautifulSoup
 
-from apps.api.user.service import login_required
+from apps.validators import param_validator, ColumnsVerifyModel
+from apps.serializers.column import ColumnSerialization
 from apps.service.column import ColumnService
 
+
 Service = ColumnService()
+VerifyModel = ColumnsVerifyModel()
+Serialize = ColumnSerialization()
 
 
 class ColumnsManager(Resource):
 
-    # @login_required
     def get(self):
         return Service.get_column_list()
 
-    # @login_required
+    @param_validator(VerifyModel.columns_add)
+    @marshal_with(Serialize.info)
     def post(self):
         """创建一个栏目"""
-        data = request.json
+        # data = request.json
+        data = g.norm_data
         return Service.add_column(data)
 
     def delete(self):
@@ -35,11 +38,9 @@ class ColumnsManager(Resource):
 
 
 class ColumnManager(Resource):
-    # @login_required
     def get(self, column_id):
         return Service.get_a_column(column_id)
 
-    # @login_required
     def delete(self, column_id):
         data = [column_id]
         return Service.del_column(data)

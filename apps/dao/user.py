@@ -25,7 +25,7 @@ class UserDao:
             role=data.get('role', 'user')
         )
         self.save_changes(new_user)
-        return self.get_user(data['username'])
+        return True
 
     @staticmethod
     def get_user(username):

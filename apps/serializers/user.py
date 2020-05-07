@@ -7,15 +7,8 @@
 #
 from flask_restful import fields
 
-# uid = db.Column(db.String(100), primary_key=True, default=uuid1().hex)
-#     username = db.Column(db.String(100), unique=True)
-#     email = db.Column(db.String(100), unique=True)
-#     password_hash = db.Column(db.String(100))
-#     role = db.Column(db.String(100), default='user')
-#     registration_time = db.Column(db.DateTime, default=datetime.now())
-#     status = db.Column(db.Integer, default=0, nullable=False)
 
-class UserDto:
+class UserSerialization:
     # 用户信息
     info = {
         'uid': fields.String,
@@ -25,4 +18,8 @@ class UserDto:
         'registration_time': fields.String,
         'status': fields.Integer
     }
+
+    # 用户登录后序列化信息
+    login = info.copy()
+    login['token'] = fields.String
 

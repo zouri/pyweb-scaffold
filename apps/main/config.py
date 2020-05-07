@@ -16,7 +16,8 @@ class BaseConfig:
     # don't need to login
     URL_WHITE_LIST = [
         '/apps/api/user/login',
-        '/url'
+        '/apps/api/verify/img',
+        '/apps/api/user',
     ]
 
     URL_BLACK_LIST = []

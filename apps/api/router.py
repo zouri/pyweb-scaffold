@@ -8,13 +8,16 @@
 from flask import Blueprint
 from flask_restful import Api
 #
-from .extras.view import *
-from .user.view import *
-from .document.view import *
-from .column.view import *
+from .extras import *
+from .user import *
+from .document import *
+from .column import *
 
 
-ApiManager = Blueprint('ApiManager', __name__)
+ApiManager = Blueprint('ApiManager', __name__, url_prefix='/apps/api')
+
+
+
 _api = Api(ApiManager)
 
 # 验证码
@@ -33,7 +36,7 @@ _api.add_resource(UserInfo, '/user/<string:username>')
 
 # 文章相关
 _api.add_resource(DocumentsManager, '/document')
-_api.add_resource(DocumentManager, '/document/<int:doc_id>')
+_api.add_resource(DocumentManager, '/document/<string:doc_id>')
 # _api.add_resource(ArticleUpdate, '/article/<int:article_id>/<string:attr>')
 
 

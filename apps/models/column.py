@@ -19,7 +19,7 @@ class Column(db.Model):
     id = db.Column(db.String(100), primary_key=True, nullable=False)
     title = db.Column(db.String(100), nullable=False)
     parent_id = db.Column(db.String(100), nullable=False, default='root')
-    type = db.Column(db.String(20))
+    type = db.Column(db.Integer, nullable=False, default=1)
 
     __table_args__ = (
         UniqueConstraint('title', 'parent_id'),  # 同一栏目下目录标题唯一

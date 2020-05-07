@@ -7,6 +7,7 @@
 #
 from flask import request, session, abort, g
 
+from apps.main import ApiException
 from apps.dao.column import ColumnDao
 
 
@@ -21,13 +22,10 @@ class ColumnService:
         :param data:
         :return:
         """
-        id, title, parent_id = data['id'], data['title'], data.get('parent_id', 'root')
+        id, title, parent_id = data['id'], data['title'], data['parent_id']
+        print(id, title, parent_id, '数据数据')
         if Dao.is_column_existe(id, title, parent_id):
-            response_object = {
-                'status': 'fail',
-                'message': f'column is existing'
-            }
-            return response_object, 409
+            raise ApiException(409, 'column is existing')
         return Dao.add_column(id, title, parent_id)
 
     def del_column(self, column_id_list, force=False):
@@ -40,20 +38,20 @@ class ColumnService:
         column_doc = Dao.get_column_doc(column_id_list)
         if column_doc and not force:
             response_object = {
-                'status': 'fail',
+                'error_code': 'fail',
                 'message': f'column {column_doc.title} is not null'
             }
             return response_object, 200
 
         if Dao.del_column(column_id_list):
             response_object = {
-                'status': 'success',
+                'error_code': 0,
                 'message': f'id {column_id_list} is deleted'
             }
             return response_object, 200
         else:
             response_object = {
-                'status': 'fail',
+                'error_code': 'fail',
                 'message': 'Some error occurred. Please try again.'
             }
             return response_object, 500
@@ -64,14 +62,17 @@ class ColumnService:
             return column_info
         else:
             response_object = {
-                'status': 'fail',
+                'error_code': 'fail',
                 'message': 'Some error occurred. Please try again.'
             }
             return response_object, 404
 
     def get_column_list(self):
-        column_tree_data = self.get_tree_column()
-        return column_tree_data
+        # column_tree_data = Dao.get_child_column('root')
+        # column_tree_data = self.get_tree_column()
+        columns = Dao.get_child_column('root')
+        data = [c.to_json() for c in columns]
+        return data
 
     def get_tree_column(self, parent_id='root', depth=1, data=None):
         """
