@@ -41,6 +41,7 @@ class DocumentVerifyModel:
         }
     }
 
+    # 获取文档列表
     get_doc_list = {
         'expected_data': {
             'type': 'dict',
@@ -79,6 +80,27 @@ class DocumentVerifyModel:
                     'empty': False,
                     'required': True,
                     'default': 'desc'
+                }
+            }
+        }
+    }
+
+    # 更新文档属性
+    update_doc_attr = {
+        'expected_data': {
+            'type': 'dict',
+            'empty': False,
+            'required': True,
+            'schema': {
+                'attr': {
+                    'type': 'string',
+                    'empty': False,
+                    'required': True
+                },
+                'value': {
+                    'anyof_type': ['string', 'integer'],
+                    'empty': False,
+                    'required': True,
                 }
             }
         }

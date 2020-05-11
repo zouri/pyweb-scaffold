@@ -26,7 +26,9 @@ class ColumnService:
         print(id, title, parent_id, '数据数据')
         if Dao.is_column_existe(id, title, parent_id):
             raise ApiException(409, 'column is existing')
-        return Dao.add_column(id, title, parent_id)
+        col_info = Dao.add_column(id, title, parent_id)
+        print(col_info)
+        return col_info.to_json()
 
     def del_column(self, column_id_list, force=False):
         """

@@ -36,16 +36,14 @@ def before_request():
     # print(session.get('token:b14ef9b4832311eaa0eaacde48001122'))
     # 校验是不是白名单
     if not is_in_url_white_list():
-        print('不是白名单')
         UserService.verify_user_token()
-    else:
-        print('在白名单里面')
+    # else:
+    #     print('在白名单里面')
 
 
 @ApiManager.after_request
 def after(response):
     data = response.json
-    print(data, type(data))
     if isinstance(data, list) or data.get('error_code', -2) == -2:
         data_str = json.dumps({
             'error_code': 0,

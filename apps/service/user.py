@@ -22,17 +22,17 @@ class UserService:
         :return: uwsgi
         """
         # 验证码校验
-        if not self.verify_captcha(ip_addr, data):
+        if self.verify_captcha(ip_addr, data) is False:
             raise ApiException(401.1)
         # 用户名密码校验
         username, password = data['username'], data['password']
         user_ = Dao.get_user(username)
-        print(user_, '获取用户数')
         if user_ and user_.check_password(password):
             user_token = uuid1().hex
             session[f'token:{user_token}'] = user_.username
-            user_.token = user_token
-            return user_
+            response_obj = user_.to_json()
+            response_obj['token'] = user_token
+            return response_obj
         else:
             number_failed_login = session.get(f'client_captcha_ip:{ip_addr}', 0)
             number_failed_login += 1
@@ -43,7 +43,7 @@ class UserService:
     def logout(self):
         """
         :param data: request.json
-        :return: uwsgi
+        :return:
         """
         del session[f'token:{g.token}']
         return {'error_code': 0, 'message': f'token ({g.token}) is die'}, 200
@@ -51,7 +51,9 @@ class UserService:
     # 管理员新建用户
     def add_user(self, data):
         if Dao.add_user(data):
-            return Dao.get_user(data['username'])
+            user_ = Dao.get_user(data['username'])
+            return user_.to_json()
+        return ApiException(500)
 
     def get_a_user(self, username):
         if username in ['me', g.user_info.username]:
@@ -85,7 +87,7 @@ class UserService:
         number_failed_login = session.get(f'client_captcha_ip:{ip_addr}', 0)
         if number_failed_login <= 3:
             # 是否需要验证码校验, 缓存 > 没有ip > 不需要检验
-            return False
+            return True
         random_key, seccode = data['random_key'], data['seccode']
         if seccode == 'no_code':
             return False

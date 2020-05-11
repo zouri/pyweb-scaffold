@@ -21,6 +21,10 @@ class DocumentSerialization:
         'pub_time': fields.String,
         'status': fields.Integer
     }
+    list_info = {
+        'total': fields.Integer,
+        'resource': fields.Raw(info)
+    }
     # 用户登录后序列化信息
     # login = info.copy()['token'] = fields.String
 

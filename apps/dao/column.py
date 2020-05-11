@@ -25,11 +25,7 @@ class ColumnDao:
             title=title,
             parent_id=parent_id,
         )
-        print(new_col, 'abcdef')
         self.save_changes(new_col)
-        # db.session.add(new_col)
-        # db.session.commit()
-        print(id_, 'abcdef')
         return self.get_a_column(id_)
 
     def del_column(self, column_id_list):

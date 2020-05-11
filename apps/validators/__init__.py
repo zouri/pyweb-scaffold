@@ -42,7 +42,6 @@ def param_validator(schema_data):
                     if 'application/json' not in request.content_type:
                         raise ApiException(400, http_code=400)
                     document = {'expected_data': request.json}
-                print(document, 'document')
                 vd = Validator(allow_unknown=True)
                 vd.schema = schema_data
                 status = vd.validate(document)
@@ -50,7 +49,7 @@ def param_validator(schema_data):
                 # document = vd.normalized(document)
                 # g.norm_data = document['expected_data']
             except Exception as e:
-                print(e)
+                print(e, '数据校验有问题')
                 raise ApiException(500, http_code=500)
 
             if status:

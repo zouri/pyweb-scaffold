@@ -15,7 +15,6 @@ from apps.models import Document
 
 class DocumentDao:
     def add_doc(self, data):
-        print(data)
         new_doc = Document(
             title=data['title'],
             content=data['content'],
@@ -25,9 +24,8 @@ class DocumentDao:
             create_time=datetime.now(),
             status=data['status']
         )
-        print(new_doc)
         self.save_change(new_doc)
-        return True
+        return self.get_doc_by_title(data['title'], data['column_id'])
 
     def del_doc_list(self, data):
         docs = Document.query.filter(Document.id.in_(data))
@@ -45,6 +43,7 @@ class DocumentDao:
 
     def update_doc_attr(self, doc, attr_name, value):
         setattr(doc, attr_name, value)
+        self.save_change()
         return True
 
     def get_doc_list(self, param=None, sort_by=None, offset=0, limit=15):

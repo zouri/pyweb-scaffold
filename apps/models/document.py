@@ -51,7 +51,7 @@ class Document(db.Model):
             'content_html': self.content_html,
             'column': self.column.title,
             'column_id': self.column_id,
-            'author': self.author,
+            'author': self.author.username,
             'create_time': self.create_time.strftime("%Y-%m-%d %H:%S:%M"),
             'pub_time': pub_time,
             'status': self.status

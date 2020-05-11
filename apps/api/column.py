@@ -25,7 +25,7 @@ class ColumnsManager(Resource):
         return Service.get_column_list()
 
     @param_validator(VerifyModel.columns_add)
-    @marshal_with(Serialize.info)
+    # @marshal_with(Serialize.info)
     def post(self):
         """创建一个栏目"""
         # data = request.json

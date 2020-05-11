@@ -19,11 +19,9 @@ Dao = DocumentDao()
 class DocumentService:
 
     def add_doc(self, data):
-        # doc = Dao.get_doc_by_title(data['title'], data['column_id'])
         if Dao.get_doc_by_title(data['title'], data['column_id']) is not None:
             # 如果已经存在
             raise ApiException(409)
-        print('可以添加')
         return Dao.add_doc(data)
 
     def del_doc_list(self, doc_id_list):
@@ -62,12 +60,7 @@ class DocumentService:
         if hasattr(doc_, attr) and attr in ['title', 'content', 'push_time', 'status']:
             Dao.update_doc_attr(doc_, attr, data)
             doc_ = Dao.get_doc_by_id(doc_id)
-            response_object = {
-                'error_code': 0,
-                'message': 'update doc success',
-                'data': doc_.to_json()
-            }
-            return response_object, 200
+            return doc_
         else:
             raise ApiException(404)
 
@@ -77,38 +70,29 @@ class DocumentService:
             raise ApiException(404)
         return doc_info
 
-    def get_doc_list(self, args):
-        page_number = int(args.get('page_number', 1))
-        limit = int(args.get('limit', 15))
-        if page_number < 1:
-            page_number = 1
+    def get_doc_list(self, data):
+        page_number = data['page_number']
+        limit = data['limit']
         offset = page_number * limit - limit
         limit = offset + limit
+
         # 栏目名称
-        column_id = args.get('column', 0)
-        if column_id != 0:
-            param = [Document.column_id == column_id]
+        if data['column_id'] != 'all':
+            param = [Document.column_id == data['column_id']]
         else:
             param = []
         # 排序字段
-        sort_field_str = args.get('sort', 'id')
+        sort_field_str = data['sort']
         if sort_field_str not in ['id', 'create_time', 'pub_time']:
             sort_field_str = 'id'
         sort_field_ = getattr(Document, sort_field_str)
+
         # 排序方式升序倒序
-        if args.get('order', 'asc') == '':
+        if data['order'] == 'asc':
             sort_by = getattr(sort_field_, 'asc')
         else:
             sort_by = getattr(sort_field_, 'desc')
-        doc_list = Dao.get_doc_list(param=param, sort_by=sort_by)
+
+        doc_list = Dao.get_doc_list(param=param, sort_by=sort_by, offset=offset, limit=limit)
         doc_total = Dao.get_total_by_param(param)
-        # response_object = {
-        #     'error_code': 0,
-        #     'message': 'success',
-        #     'data': {
-        #         'total': doc_total,
-        #         'resource': [d.to_json for d in doc_list]
-        #     }
-        # }
-        # return response_object, 200
-        return doc_list
+        return doc_list, doc_total
