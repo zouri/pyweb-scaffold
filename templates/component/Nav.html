@@ -1,0 +1,216 @@
+{# 顶部菜单 #}
+<div id="nav">
+  <div id="navbox">
+    <img src="/static/snowbeer/img/logo.png" id="logo" style="left:-70px">
+    <ul id="navlist">
+      <li><span class="active" onclick="javascript:window.location.href='/'">首页</span></li>
+      <li><span id="aboutus">关于雪花</span></li>
+      <li><span id="pphd">品牌活动</span></li>
+      <li><span id="xhcp">雪花产品</span></li>
+      <li><span id="shgy">社会公益</span></li>
+      <li><span id="rcsc">人才招聘</span></li>
+      <li><span id="hrwq">华润网群</span></li>
+    </ul>
+  </div>
+  <div class="navli" id="about">
+    <ul>
+      <li id="gsjs"><span>公司介绍</span></li>
+      <li id="gsls"><span>公司历史</span></li>
+      <li id="gszx"><span>新闻资讯</span></li>
+    </ul>
+  </div>
+  <div class="navli" id="band">
+    <ul>
+      <li id="jchd"><span>精彩活动</span></li>
+      <li id="ggsp"><span>精彩视频</span></li>
+    </ul>
+  </div>
+  <div class="navli" id="pronav">
+    <ul>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=1'">
+        <span>脸谱</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=2'">
+        <span>匠心营造</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=3'">
+        <span>勇闯天涯</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=23'">
+        <span>勇闯天涯superX</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=24'">
+        <span>精制</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=25'">
+        <span>黑啤</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=26'">
+        <span>晶尊</span></li>
+      <li onclick="javascript:window.location.href='https://www.snowbeer.com.cn/index.php?r=pro/product/list&amp;id=27'">
+        <span>爱尔</span></li>
+    </ul>
+  </div>
+  <div class="navli" id="shehui">
+    <ul>
+      <li id="gj"><span>古建丛书</span></li>
+      <li id="zr"><span>社会责任报告</span></li>
+    </ul>
+  </div>
+
+</div>
+<script>
+  let siteUrl = '/'
+  $(function(){
+    function check(e) {
+        var bt = document.getElementById("ss_nr");
+        var e = window.event || arguments.callee.caller.arguments[0];
+        if (e && e.keyCode == 13 ) {
+            alert(bt.value);
+        }
+    }
+
+    function test() {
+        var txtValue = document.getElementById("ss_nr").value;
+        alert(txtValue);
+    }
+
+    //左导航
+    sp_h()
+    window.onresize=function(){
+        sp_h()
+    }
+    function sp_h(){
+      var winh=$(window).height();
+      var navlefth=winh-298-69;
+    }
+
+    //导航
+      var pphd,aboutus,xhcp,shgy;
+      $('#aboutus').bind('mouseenter',function(){
+          $('.navli').hide();
+          $('#about').show();
+      })
+      $('#aboutus').bind('mouseleave',function(){
+          aboutus=setTimeout(function(){
+              $('#about').hide();
+          },250)
+      })
+
+      $('#pphd').bind('mouseenter',function(){
+          $('.navli').hide();
+          $('#band').show();
+      })
+      $('#pphd').bind('mouseleave',function(){
+          pphd=setTimeout(function(){
+              $('#band').hide();
+          },250)
+      })
+
+      $('#xhcp').bind('mouseenter',function(){
+          $('.navli').hide();
+          $('#pronav').show();
+      })
+      $('#xhcp').bind('mouseleave',function(){
+          xhcp=setTimeout(function(){
+              $('#pronav').hide();
+          },250)
+      })
+
+      $('#shgy').bind('mouseenter',function(){
+          $('.navli').hide();
+          $('#shehui').show();
+      })
+      $('#shgy').bind('mouseleave',function(){
+          shgy=setTimeout(function(){
+              $('#shehui').hide();
+          },250)
+      })
+
+      $('.navli').bind('mouseenter',function(){
+           //alert(1)
+          clearTimeout(aboutus);
+          clearTimeout(pphd);
+          clearTimeout(xhcp);
+          clearTimeout(shgy);
+      })
+
+
+      $('.navli').bind('mouseleave',function(){
+         $('.navli').hide();
+      })
+
+      $('#aboutus,#gsjs').click(function(){
+          window.location.href=siteUrl+'about#recommend';
+          //window.open('about.html')
+      })
+      $('#gsls').click(function(){
+          window.location.href=siteUrl+'about#history';
+          //window.open('History.html')
+      })
+      $('#gsry').click(function(){
+          window.location.href=siteUrl+'about#honor';
+          //window.open('Honor.html')
+      })
+      $('#gszx').click(function(){
+          window.location.href=siteUrl+'news#list&page=1';
+          //window.open('newlist.html')
+      })
+
+      $('#pphd,#jchd').click(function(){
+          window.location.href=siteUrl+'activity#act';
+          //window.open('band.html')
+      })
+      $('#ggsp').click(function(){
+          window.location.href=siteUrl+'activity#adv&page=1';
+          //window.open('ad.html')
+      })
+
+      $('#xhcp,#pro1').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro1.html')
+      })
+      $('#pro2').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro2.html')
+      })
+      $('#pro3').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro3.html')
+      })
+      $('#pro4').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro4.html')
+      })
+      $('#pro5').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro5.html')
+      })
+      $('#pro6').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro6.html')
+      })
+      $('#pro7').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro7.html')
+      })
+      $('#pro8').click(function(){
+          window.location.href=siteUrl+'product#list';
+          //window.open('pro8.html')
+      })
+
+      $('#shgy,#gj').click(function(){
+          window.location.href=siteUrl+'benefit#book';
+          //window.open('soc.html')
+      })
+      $('#zr').click(function(){
+          window.location.href=siteUrl+'benefit#report';
+          //window.open('soc2.html')
+      })
+
+      $('#rcsc').click(function(){
+          window.location.href=siteUrl+'job#list';
+          //window.open('Recruitment.html')
+      })
+      $('#hrwq').click(function(){
+          window.location.href='http://www.crc.com.cn/other/group/';
+      })
+   })
+</script>
+<style>
+
+</style>

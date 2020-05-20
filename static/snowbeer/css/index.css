@@ -1,0 +1,74 @@
+#head{ height: 520px;}
+
+#focus_little {width:290px; height:170px; overflow:hidden; position:relative; left:0; margin-left:0;}
+#focus_little ul {height:290px; position:absolute;}
+#focus_little ul li {float:left; width:290px; height:170px; overflow:hidden; position:relative;;}
+#focus_little ul li em{ position:absolute; bottom:0; width:290px; z-index:10; line-height:28px; text-align:center; font-size:12px; color:#FFF; background:#333; font-style:normal;}
+#focus_little ul li div {position:absolute; overflow:hidden;}
+#focus_little .preNext {width:32px; height:53px; position:absolute; top:68px; background:url(/static/snowbeer/img/small.png) no-repeat 0 0; cursor:pointer;}
+#focus_little .pre {left:0;}
+#focus_little .next {right:0; background-position:right top;}
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix {zoom:1;}
+/* qqshop focus */
+#focus {width:1280px; height:520px; overflow:hidden; position:absolute; left: 50%; margin-left: -640px;}
+#focus a, #focus a img{ border:none}
+#focus ul {height:520px; position:absolute;}
+#focus ul li {  width:1280px; height:520px; overflow:hidden; position:relative; text-align: center; float: left;}
+#focus ul li em{ position:absolute; top:13px; right:312px; z-index:1; text-align:center; font-size:16px; color:#FFF; font-style:normal; z-index: 3; font-family: '黑体'}
+#focus ul li em span{ font-size:40px; color:#FFF; font-style:normal; display: inline-block; padding-right: 10px;}
+#focus ul li em p{ position:absolute; top:16px; right:90px; width:130px; z-index:1; text-align:center; font-size:16px; color:#FFF;}
+#focus ul li div {position:absolute; overflow:hidden;}
+#focus .btnBg {position:absolute; width:100%; height:70px; left:0; bottom:0; background:rgba(250,204,0,0.7) }
+#focus .btn {position:absolute;   left:313px; bottom:22px; text-align:right; z-index: 20;}
+#focus .btn span {display:inline-block; _display:inline; _zoom:1; width:16px; height:23px; overflow:hidden; _font-size:0; margin-left:5px; cursor:pointer; background: url(/static/snowbeer/img/yu_19.png) no-repeat bottom center;}
+#focus .btn span.on {background: url(/static/snowbeer/img/yu_19.png) no-repeat top center;}
+#focus .preNext {width:32px; height:53px; position:absolute; top:225px; background:url(/static/snowbeer/img/sprite.png) no-repeat 0 0; cursor:pointer;}
+#focus .pre {left:0;}
+#focus .next {right:0; background-position:right top;}
+
+#index_left{ width: 645px; height: auto; overflow: auto; zoom: 1; float: left;}
+.box img{ float: left; }
+#newlist>li{ padding: 20px 0; height:auto ; zoom: 1; overflow: auto; border-bottom: 1px solid #ddd;}
+#newlist>li:last-child{border-bottom:none;}
+.box dl{ float: left; width: 395px; margin-left: 30px;}
+.box dl dt{ text-indent: 20px; background: url("/static/snowbeer/img/index_dd.jpg") no-repeat 0px center; font-size: 14px; line-height: 25px;}
+.box dl dd{ font-size: 12px; line-height: 24px;}
+.box dl dd p{ padding-top: 10px;}
+#index_right{ width: 255px; height: auto; overflow: hidden; zoom: 1; float: right;}
+#move{ width: 254px; height: 148px; margin: 20px 0px 18px; overflow: hidden; position:relative }
+#icons{ width: 306px; margin-right: -51px; height: 176px; overflow: hidden; zoom: 1; font-size: 12px;}
+#icons ul{ width: 306px;}
+#icons li{ float: left; margin-right: 55px; height: 88px; list-style: none;   overflow: hidden;  }
+#icons li img{ margin-bottom: 5px; width: 48px; height: 48px;}
+#icons li span{ display: block;}
+#icons div{ float: left; zoom: 1; overflow: auto; height: auto; text-align: center; cursor: pointer;}
+#icons li:nth-child(3n){ margin: 0px;}
+
+#bottomicon ul{ width: 980px; overflow: hidden;}
+#bottomicon li{ float: left; padding-right:23px;  height: auto; zoom: 1; list-style: none; padding-bottom: 10px; padding-left:50px;}
+#bottomicon li:nth-child(2),#bottomicon li:nth-child(4){padding-right: 22px;}
+#bottomicon li:last-child{padding-right:0px;}
+#bottomicon li img{ margin-bottom: 5px; max-width: 118px; max-height: 48px; border: 1px solid #ddd;}
+#bottomicon li div{ width:120px; overflow: hidden; zoom: 1; text-align: center; cursor: pointer;}
+#bottomicon li span{ display: block;font-size: 11px;}
+
+
+.list_namedate{ height:auto; overflow: auto; zoom: 1; background:#eee; line-height: 30px; margin-bottom: 20px; }
+.nametit{ display:inline-block; float: left; padding-left: 30px; background: url("/static/snowbeer/img/index_dd.jpg") 19px  center no-repeat;  font-size: 14px;}
+.namedate{  float: right; display: inline-block; padding-right: 30px; font-size: 12px;}
+.text_main{ height: auto; overflow: auto; zoom: 1;  position: relative;    min-height: 75px;  font-size: 12px; line-height: 25px; }
+.text_main img{ float: left; width: 220px; height: 140px; margin-right: 20px; padding: 0px;}
+.text_main  p{text-indent: 2em; }
+.text_main a{ /*position: absolute;  right: 10px; bottom: 5px;*/  font-size: 12px; color: #c39639; text-decoration: underline; float: right; padding-right: 10px;}
+#filer{ position:fixed; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; display: none;}
+
+#video_b{ position: absolute; width: 980px; height: 584px; left: 50%; top: 50%; margin-left: -490px;margin-top: -300px; }
+#close{ position: absolute; right: 10px; top: 10px; line-height: 55px; font-size: 45px; cursor: pointer; background: url("/static/snowbeer/img/xx.jpg"); width: 20px; height: 20px; overflow: hidden; display: none;}
+#vd_st{ position: absolute; width: 100%; height: 100%; background: url("/static/snowbeer/img/pl_sm.png")  left bottom no-repeat;}
+#index_er{ width: 148px; height: 163px; background: url("/static/snowbeer/img/er_1.png") center bottom no-repeat; top: 846px; left: 50%; margin-left: -519px; z-index: 35; display: none; position: absolute;}
+
+@media screen and (max-width: 1037px) {
+    #index_er { left: 0px; margin-left: 0px;background: url("/static/snowbeer/img/er_2.png") center bottom no-repeat;
+    }
+}

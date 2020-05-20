@@ -9,7 +9,7 @@
 from flask import request, abort, g
 from flask_restful import Resource, marshal_with
 
-from apps.validators import param_validator, ColumnsVerifyModel
+from apps.validators import param_validator, ColumnsVerifyModel, Valid_IdList_Del
 from apps.serializers.column import ColumnSerialization
 from apps.service.column import ColumnService
 
@@ -25,13 +25,13 @@ class ColumnsManager(Resource):
         return Service.get_column_list()
 
     @param_validator(VerifyModel.columns_add)
-    # @marshal_with(Serialize.info)
     def post(self):
         """创建一个栏目"""
         # data = request.json
         data = g.norm_data
         return Service.add_column(data)
 
+    @param_validator(Valid_IdList_Del)
     def delete(self):
         data = request.json
         return Service.del_column(data)

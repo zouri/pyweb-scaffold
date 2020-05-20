@@ -61,7 +61,7 @@ class ColumnService:
     def get_a_column(self, column_id):
         column_info = Dao.get_a_column(column_id)
         if column_info:
-            return column_info
+            return column_info.to_json()
         else:
             response_object = {
                 'error_code': 'fail',
