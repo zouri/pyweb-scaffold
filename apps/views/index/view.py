@@ -7,13 +7,19 @@
 #
 from flask import Blueprint, render_template
 
+from apps.dao.document import DocumentDao
+
 IndexBp = Blueprint('Index', __name__)
+
+
+DAO = DocumentDao()
 
 
 # 首页
 @IndexBp.route('/')
 def index():
-    # 做些处理
+    last_new = DAO.get_doc_list(offset=0, limit=5)
+    print(last_new)
     return render_template('index.html')
 
 
