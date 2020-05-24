@@ -21,6 +21,7 @@ class DocumentDao:
             content_html=data['content'],
             column_id=data['column_id'],
             author_id=g.user_info.uid,
+            cover=data.get('cover'),
             create_time=datetime.now(),
             status=data['status']
         )
@@ -34,10 +35,15 @@ class DocumentDao:
         return True
 
     def update_doc(self, doc_, data):
-        doc_.update(data)
+        print(data)
+        doc_.title = data['title']
+        doc_.content_html = data['content']
+        doc_.author_id = g.user_info.uid
+        doc_.status = data['status']
+        doc_.cover = data['cover']
         doc_.content = data['content']
         if data['status'] == 2:
-            doc_.update({'pub_time': datetime.now()})
+            doc_.pub_time = datetime.now()
         self.save_change()
         return True
 

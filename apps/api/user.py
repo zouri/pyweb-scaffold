@@ -44,11 +44,19 @@ class UserRegister(Resource):
 class UserManager(Resource):
 
     @param_validator(VerifyModel.user_add)
-    # @marshal_with(Serialize.info)
     def post(self):
         norm_data = g.norm_data
         return Service.add_user(norm_data)
 
+    @param_validator(VerifyModel.user_add)
+    def delete(self):
+        norm_data = g.norm_data
+        return Service.add_user(norm_data)
+
+    @param_validator(VerifyModel.user_add)
+    def get(self):
+        norm_data = g.norm_data
+        return Service.add_user(norm_data)
 
 # 用户信息
 class UserInfo(Resource):
@@ -56,5 +64,4 @@ class UserInfo(Resource):
     # @marshal_with(Serialize.info)
     def get(self, username):
         user_ = Service.get_a_user(username)
-
         return user_.to_json()

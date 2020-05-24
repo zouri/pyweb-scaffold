@@ -56,8 +56,7 @@ class DocumentManager(Resource):
     def put(self, doc_id):
         """更新一片文章"""
         data = request.json
-        doc_ = Service.update_doc(doc_id, data)
-        return doc_.to_json()
+        return Service.update_doc(doc_id, data)
 
     @param_validator(VerifyModel.update_doc_attr)
     def patch(self, doc_id):

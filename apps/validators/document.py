@@ -31,6 +31,11 @@ class DocumentVerifyModel:
                     'empty': False,
                     'required': True
                 },
+                'cover': {
+                    'type': 'string',
+                    'empty': False,
+                    'required': False,
+                },
                 'status': {
                     'type': 'integer',
                     'empty': False,

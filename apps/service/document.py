@@ -38,12 +38,7 @@ class DocumentService:
         doc_ = Dao.get_doc_by_id(doc_id)
         if not doc_:
             raise ApiException(404)
-        data = {
-            'title': data['title'],
-            'content_html': data['content'],
-            'author': g.user_info.username,
-            'status': data['status']
-        }
+        print(doc_)
         if Dao.update_doc(doc_, data):
             response_object = {
                 'error_code': 0,

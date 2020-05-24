@@ -18,7 +18,7 @@ class Document(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), nullable=False)
-    covers = db.Column(db.String(50))
+    cover = db.Column(db.String(200))
     content_text = db.Column(db.Text, nullable=False)
     content_html = db.Column(db.Text, nullable=False)
     column_id = db.Column(db.String(100), db.ForeignKey('column.id'))
@@ -48,7 +48,7 @@ class Document(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'covers': self.covers,
+            'cover': self.cover,
             'content': self.content_text,
             'content_html': self.content_html,
             'column': self.column.title,

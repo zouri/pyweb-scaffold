@@ -17,8 +17,8 @@ from .column import *
 ApiManager = Blueprint('ApiManager', __name__, url_prefix='/apps/api')
 
 
-
 _api = Api(ApiManager)
+
 
 # 验证码
 _api.add_resource(ImageCode, '/verify/img')
@@ -27,10 +27,10 @@ _api.add_resource(ImageCode, '/verify/img')
 _api.add_resource(ImageUpload, '/upload/img')
 
 # 用户管理,登陆,注销注册
+_api.add_resource(UserManager, '/user')
 _api.add_resource(UserLogin, '/user/login')
 _api.add_resource(UserLogout, '/user/logout')
 _api.add_resource(UserRegister, '/user/register')
-_api.add_resource(UserManager, '/user')
 _api.add_resource(UserInfo, '/user/<string:username>')
 
 
