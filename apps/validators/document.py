@@ -33,7 +33,7 @@ class DocumentVerifyModel:
                 },
                 'cover': {
                     'type': 'string',
-                    'empty': False,
+                    'empty': True,
                     'required': False,
                 },
                 'status': {

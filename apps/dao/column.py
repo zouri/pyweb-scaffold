@@ -5,6 +5,7 @@
 # Last Modified: x
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
+from sqlalchemy import or_, and_
 
 from apps.main import db
 from apps.models import Column, Document
@@ -15,7 +16,7 @@ class ColumnDao:
     def add_column(self, id_, title, parent_id):
         """
         新增栏目
-        :param parent_id: 父目录, 0为根目录
+        :param parent_id: 父目录, 'root'为根目录
         :param id_: 栏目自定义id, 例如<title>的拼音
         :param title: 栏目名称
         :return: 返回新建的栏目对象
@@ -40,7 +41,6 @@ class ColumnDao:
         :param column_id: 栏目自定义ID
         :return: column Obj or None
         """
-        print('abcdef')
         return Column.query.filter_by(id=column_id).first()
 
     def get_child_column(self, parent_id):
@@ -70,9 +70,17 @@ class ColumnDao:
         :param parent_id: 父栏目
         :return:
         """
+        print(id_, title, parent_id)
         col = Column.query.filter(
-            Column.id == id_ or Column.id == 'root' or (Column.parent_id == parent_id and Column.title == title)
+            or_(
+                Column.id == id_,
+                and_(
+                    Column.parent_id == parent_id,
+                    Column.title == title
+                )
+            )
         ).all()
+        print(col, 'abcddffdfdfdf')
         if col:
             return True
         else:

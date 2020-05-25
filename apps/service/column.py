@@ -26,6 +26,7 @@ class ColumnService:
         print(id, title, parent_id, '数据数据')
         if Dao.is_column_existe(id, title, parent_id):
             raise ApiException(409, 'column is existing')
+        print(data, 'dafafsdfs')
         col_info = Dao.add_column(id, title, parent_id)
         print(col_info)
         return col_info.to_json()
@@ -40,23 +41,23 @@ class ColumnService:
         column_doc = Dao.get_column_doc(column_id_list)
         if column_doc and not force:
             response_object = {
-                'error_code': 'fail',
+                'error_code': 404,
                 'message': f'column {column_doc.title} is not null'
             }
-            return response_object, 200
+            return response_object
 
         if Dao.del_column(column_id_list):
             response_object = {
                 'error_code': 0,
                 'message': f'id {column_id_list} is deleted'
             }
-            return response_object, 200
+            return response_object
         else:
             response_object = {
-                'error_code': 'fail',
+                'error_code': 500,
                 'message': 'Some error occurred. Please try again.'
             }
-            return response_object, 500
+            return response_object
 
     def get_a_column(self, column_id):
         column_info = Dao.get_a_column(column_id)
@@ -64,10 +65,10 @@ class ColumnService:
             return column_info.to_json()
         else:
             response_object = {
-                'error_code': 'fail',
+                'error_code': 404,
                 'message': 'Some error occurred. Please try again.'
             }
-            return response_object, 404
+            return response_object
 
     def get_column_list(self):
         # column_tree_data = Dao.get_child_column('root')

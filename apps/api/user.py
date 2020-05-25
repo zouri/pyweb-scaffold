@@ -14,7 +14,6 @@ from apps.serializers.user import UserSerialization
 
 
 Service = UserService()
-# Serialize = UserSerialization()
 VerifyModel = UserVerifyModel()
 
 
@@ -58,6 +57,7 @@ class UserManager(Resource):
         norm_data = g.norm_data
         return Service.add_user(norm_data)
 
+
 # 用户信息
 class UserInfo(Resource):
 
@@ -65,3 +65,11 @@ class UserInfo(Resource):
     def get(self, username):
         user_ = Service.get_a_user(username)
         return user_.to_json()
+
+
+# 用户菜单
+class UserNav(Resource):
+
+    def get(self):
+        # 未做限制,返回所有栏目
+        return Service.get_nav_column()

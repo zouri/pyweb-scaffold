@@ -6,12 +6,15 @@
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
 from uuid import uuid1
-from flask import request, session, abort, g
+from flask import request, session, g
 
 from apps.main import ApiException
+from apps.service.column import ColumnService
 from apps.dao.user import UserDao
 
+
 Dao = UserDao()
+ColService = ColumnService()
 
 
 class UserService:
@@ -19,7 +22,7 @@ class UserService:
     def login(self, data, ip_addr):
         """
         :param data: request.json
-        :return: uwsgi
+        :return:
         """
         # 验证码校验
         if self.verify_captcha(ip_addr, data) is False:
@@ -54,6 +57,27 @@ class UserService:
             user_ = Dao.get_user(data['username'])
             return user_.to_json()
         return ApiException(500)
+
+    # 获取菜单
+    def get_nav_column(self):
+        col_list = ColService.get_tree_column()
+        nav_list = []
+        for c in col_list:
+            nav_list.append({
+                'id': c['id'],
+                'name': c['title'],
+                'parentId': 'document',
+                'path': f"/document/{c['id']}",
+                'meta': {
+                    'icon': 'file-text',
+                    'title': c['title'],
+                    'show': True,
+                    'keepAlive': False
+                },
+                'component': 'DocumentManager',
+            })
+        return nav_list
+
 
     def get_a_user(self, username):
         if username in ['me', g.user_info.username]:

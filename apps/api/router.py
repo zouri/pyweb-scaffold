@@ -33,6 +33,9 @@ _api.add_resource(UserLogout, '/user/logout')
 _api.add_resource(UserRegister, '/user/register')
 _api.add_resource(UserInfo, '/user/<string:username>')
 
+# 获取菜单
+_api.add_resource(UserNav, '/user/nav')
+
 
 # 文章相关
 _api.add_resource(DocumentsManager, '/document')
