@@ -8,3 +8,4 @@
 from .document import *
 from .user import *
 from .column import *
+from .public_info import *

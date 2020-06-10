@@ -12,6 +12,7 @@ from .extras import *
 from .user import *
 from .document import *
 from .column import *
+from .public_info import *
 
 
 ApiManager = Blueprint('ApiManager', __name__, url_prefix='/apps/api')
@@ -41,6 +42,11 @@ _api.add_resource(UserNav, '/user/nav')
 _api.add_resource(DocumentsManager, '/document')
 _api.add_resource(DocumentManager, '/document/<string:doc_id>')
 # _api.add_resource(ArticleUpdate, '/article/<int:article_id>/<string:attr>')
+
+
+# 首页管理相关
+_api.add_resource(BannerService, '/index/banner')
+# _api.add_resource(ColumnManager, '/b/<string:column_name>')
 
 
 # 栏目相关
