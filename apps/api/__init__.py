@@ -37,8 +37,9 @@ def before_request():
     # 校验是不是白名单
     if not is_in_url_white_list():
         UserService.verify_user_token()
-    # else:
-    #     print('在白名单里面')
+    else:
+        print('在白名单里面')
+    print('通过校验')
 
 
 @ApiManager.after_request

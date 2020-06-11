@@ -8,16 +8,15 @@
 import os
 import imghdr
 
-from werkzeug.utils import secure_filename
 from flask import current_app as _app
-from flask import request
+from flask import session, request
 
 from apps.utils.verify import *
 
 
 class ExtrasService:
 
-    def upload_file(self):
+    def upload_img(self):
         upload_path = _app.config.get('UPLOAD_PATH', './static/upload')
         file_data = request.files['file']
         file_blob = file_data.stream.read()

@@ -30,4 +30,5 @@ register_apis_blueprints(app)
 # Api 异常绑定
 @app.errorhandler(ApiException)
 def handle_invalid_usage(e):
-    return jsonify({'error_code': e.code, 'message': e.message}), e.http_code
+    return jsonify({'error_code': e.code, 'message': e.message}), e.code
+    # return jsonify({'error_code': e.code, 'message': e.message}), e.code

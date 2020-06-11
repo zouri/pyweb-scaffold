@@ -23,4 +23,4 @@ class PublicInfoService:
         return data
 
     def set_banner(self):
-        return ES.upload_file()
+        return ES.upload_img()

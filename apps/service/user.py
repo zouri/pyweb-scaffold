@@ -128,15 +128,15 @@ class UserService:
     def verify_user_token():
         user_token = UserService.get_user_token_by_headers()
         if user_token is None:
-            raise ApiException(401)
+            raise ApiException(401, http_code=401)
         username = session.get(f'token:{user_token}')
         if user_token == 'sun&1234567890':
             username = 'admin'
         if not username:
-            raise ApiException(401)
+            raise ApiException(401, http_code=401)
         user_info = Dao.get_user(username)
         if user_info is None:
-            raise ApiException(401)
+            raise ApiException(401, http_code=401)
         else:
             g.token = user_token
             g.user_info = user_info
