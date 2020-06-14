@@ -7,6 +7,7 @@
 #
 import os
 import imghdr
+import time
 
 from flask import current_app as _app
 from flask import session, request
@@ -16,18 +17,27 @@ from apps.utils.verify import *
 
 class ExtrasService:
 
-    def upload_img(self):
-        upload_path = _app.config.get('UPLOAD_PATH', './static/upload')
-        file_data = request.files['file']
-        file_blob = file_data.stream.read()
-        img_type = imghdr.what(file_data.filename, h=file_blob)
+    def upload_img(self, img_data):
+        # img_data = request.files['file']
+        file_stream = img_data.stream.read()
+        img_type = imghdr.what(img_data.filename, h=file_stream)
 
         if img_type not in ['jpeg', 'png']:
             return {'error_code': 400, 'message': 'Unable To Determine Picture Type'}
 
+        # 创建图片保存目录,按天分割
+        dir_datetime_name = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+        upload_path = f"{_app.config.get('UPLOAD_PATH', './static/upload')}/{dir_datetime_name}"
+        if not os.path.isdir(upload_path):
+            os.makedirs(upload_path)
+
         file_name = f"{uuid1().hex}.{img_type}"
         with open(os.path.join(upload_path, file_name), 'wb') as f:
-            f.write(file_blob)
+            f.write(file_stream)
 
-        url = '/static/upload_file/' + file_name
-        return {'error_code': 0, 'message': 'success', 'data': {'url': url}}
+        return {
+            'abs_path': f"{dir_datetime_name}/{file_name}",
+            'datetime': dir_datetime_name,
+            'file_name': file_name
+        }
+

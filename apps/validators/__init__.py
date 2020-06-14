@@ -9,11 +9,13 @@ from functools import wraps
 
 from flask import request, g
 from cerberus import Validator
+import traceback
 
 from apps.main import ApiException
 from .user import *
 from .column import *
 from .document import *
+from .public_info import *
 
 
 Valid_IdList_Del = {

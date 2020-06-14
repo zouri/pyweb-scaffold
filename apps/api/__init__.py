@@ -39,7 +39,7 @@ def before_request():
         UserService.verify_user_token()
     else:
         print('在白名单里面')
-    print('通过校验')
+    # print('通过校验')
 
 
 @ApiManager.after_request
