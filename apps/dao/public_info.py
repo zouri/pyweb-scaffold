@@ -16,7 +16,7 @@ class PublicInfoDao:
         return PublicInfo.query.filter(PublicInfo.name == key_name).first()
 
     def get_banner(self):
-        sort_by = BannerInfo.orders.asc
+        sort_by = BannerInfo.orders_id.asc
         return BannerInfo.query.order_by(sort_by()).all()
 
     def get_a_banner(self, img_name):
@@ -24,15 +24,14 @@ class PublicInfoDao:
 
     def add_banner(self, data):
         new_banner = BannerInfo(
-            orders=data['orders'],
+            orders_id=data['orders_id'],
             title=data['title'],
-            description=data['description'],
-            img_path=data['img_path'],
-            connect_url=data['connect_url'],
+            img_name=data['img_name'],
+            link_url=data['link_url'],
             status=data['status']
         )
         self.save_change(new_banner)
-        return self.get_a_banner(data['img_path'])
+        return self.get_a_banner(data['img_name'])
 
     @staticmethod
     def save_change(data=None):

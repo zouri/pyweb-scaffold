@@ -25,14 +25,6 @@ class PublicInfoService:
         return []
 
     def set_banner(self, data):
-        file_data = request.files['file']
-        img_info = ES.upload_img(file_data)
-        Dao.add_banner({
-            'orders': data['orders'],
-            'title': data['title'],
-            'description': data['description'],
-            'img_path': img_info['abs_path'],
-            'connect_url': data['connect_url'],
-            'status': data['status']
-        })
+        Dao.add_banner(data)
+        print(data, 'hahahahahhahaah')
         return {'error_code': 0, 'message': 'success', 'data': data}

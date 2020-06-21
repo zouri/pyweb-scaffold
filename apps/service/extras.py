@@ -36,6 +36,7 @@ class ExtrasService:
             f.write(file_stream)
 
         return {
+            'url': f"/static/upload_file/{dir_datetime_name}/{file_name}",
             'abs_path': f"{dir_datetime_name}/{file_name}",
             'datetime': dir_datetime_name,
             'file_name': file_name

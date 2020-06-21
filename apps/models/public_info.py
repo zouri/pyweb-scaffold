@@ -35,12 +35,13 @@ class BannerInfo(db.Model):
     __tablename__ = "banner"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    orders = db.Column(db.Integer, nullable=False, default=0)
+    orders_id = db.Column(db.Integer, nullable=False, default=0)
+    type_ = db.Column(db.Integer, nullable=False, default=0)
     title = db.Column(db.String(100), nullable=True)
+    img_name = db.Column(db.String(50), nullable=False, unique=True)
+    link_url = db.Column(db.String(100), nullable=False, default="/")
     description = db.Column(db.Text, nullable=True)
-    img_path = db.Column(db.String(50), nullable=False, unique=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    connect_url = db.Column(db.String(100), nullable=False, default="/")
     status = db.Column(db.String(100), nullable=False)
 
     def to_json(self):

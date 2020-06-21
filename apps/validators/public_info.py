@@ -15,12 +15,12 @@ class PublicInfoVerifyModel:
             'empty': False,
             'required': True,
             'schema': {
-                'orders': {
+                'orders_id': {
                     'type': 'integer',
                     'empty': False,
                     'required': False
                 },
-                'img_path': {
+                'img_name': {
                     'type': 'string',
                     'empty': False,
                     'required': True
@@ -30,12 +30,7 @@ class PublicInfoVerifyModel:
                     'empty': True,
                     'required': False
                 },
-                'description': {
-                    'type': 'string',
-                    'empty': True,
-                    'required': False
-                },
-                'connect_url': {
+                'link_url': {
                     'type': 'string',
                     'empty': True,
                     'required': False
