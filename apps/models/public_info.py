@@ -38,7 +38,7 @@ class BannerInfo(db.Model):
     orders_id = db.Column(db.Integer, nullable=False, default=0)
     type_ = db.Column(db.Integer, nullable=False, default=0)
     title = db.Column(db.String(100), nullable=True)
-    img_name = db.Column(db.String(50), nullable=False, unique=True)
+    img_name = db.Column(db.String(200), nullable=False)
     link_url = db.Column(db.String(100), nullable=False, default="/")
     description = db.Column(db.Text, nullable=True)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now())
@@ -50,9 +50,9 @@ class BannerInfo(db.Model):
             'orders': self.id,
             'title': self.title,
             'description': self.description,
-            'img_path': self.img_path,
+            'img_name': self.img_name,
             'create_time': self.create_time.strftime("%Y-%m-%d %H:%S:%M"),
-            'connect_url': self.connect_url,
+            'link_url': self.link_url,
             'status': self.status
         }
 

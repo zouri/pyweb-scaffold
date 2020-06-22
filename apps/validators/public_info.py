@@ -28,12 +28,14 @@ class PublicInfoVerifyModel:
                 'title': {
                     'type': 'string',
                     'empty': True,
-                    'required': False
+                    'required': False,
+                    'default': ''
                 },
                 'link_url': {
                     'type': 'string',
                     'empty': True,
-                    'required': False
+                    'required': False,
+                    'default': ''
                 },
                 'status': {
                     'type': 'integer',

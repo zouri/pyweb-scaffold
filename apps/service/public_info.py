@@ -22,7 +22,7 @@ class PublicInfoService:
         print(data)
         if data is None:
             return []
-        return []
+        return [i.to_json() for i in data]
 
     def set_banner(self, data):
         Dao.add_banner(data)

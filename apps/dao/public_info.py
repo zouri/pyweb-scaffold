@@ -15,9 +15,9 @@ class PublicInfoDao:
     def get_data(self, key_name):
         return PublicInfo.query.filter(PublicInfo.name == key_name).first()
 
-    def get_banner(self):
+    def get_banner(self, type_='index'):
         sort_by = BannerInfo.orders_id.asc
-        return BannerInfo.query.order_by(sort_by()).all()
+        return BannerInfo.query.filter(BannerInfo.type_ == type_).order_by(sort_by()).all()
 
     def get_a_banner(self, img_name):
         return BannerInfo.query.filter(BannerInfo.img_name == img_name).first()
