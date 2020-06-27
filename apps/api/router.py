@@ -25,9 +25,6 @@ _api = Api(ApiManager)
 # 验证码
 _api.add_resource(ImageCode, '/verify/img')
 
-# 图片上传
-_api.add_resource(ImageUpload, '/upload/img')
-
 # 用户管理,登陆,注销注册
 _api.add_resource(UserManager, '/user')
 _api.add_resource(UserLogin, '/user/login')

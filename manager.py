@@ -1,17 +1,18 @@
 # -*- coding:utf-8 -*-
-from flask_migrate import Migrate, MigrateCommand
-from flask_script import Manager, Shell
+
+import click
+from flask_migrate import Migrate
 
 from apps import app
 from apps.main import db
+from apps.cli import register_cli
 
 
 migrate = Migrate(app, db)
 
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+# 注册自定义命令行
+register_cli(app)
 
 
-if __name__ == '__main__':
-    manager.run()
+
 
