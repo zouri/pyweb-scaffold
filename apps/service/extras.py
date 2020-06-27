@@ -27,7 +27,7 @@ class ExtrasService:
 
         # 创建图片保存目录,按天分割
         dir_datetime_name = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-        upload_path = f"{_app.config.get('UPLOAD_PATH', './static/upload')}/{dir_datetime_name}"
+        upload_path = f"{_app.config.get('UPLOAD_PATH')}/{dir_datetime_name}"
         if not os.path.isdir(upload_path):
             os.makedirs(upload_path)
 

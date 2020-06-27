@@ -35,7 +35,6 @@ class DocumentDao:
         return True
 
     def update_doc(self, doc_, data):
-        print(data)
         doc_.title = data['title']
         doc_.content_html = data['content']
         doc_.author_id = g.user_info.uid

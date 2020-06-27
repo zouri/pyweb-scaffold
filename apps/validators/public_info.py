@@ -15,15 +15,22 @@ class PublicInfoVerifyModel:
             'empty': False,
             'required': True,
             'schema': {
-                'orders_id': {
+                'order_id': {
                     'type': 'integer',
                     'empty': False,
-                    'required': False
+                    'required': False,
+                    'default': 100
                 },
-                'img_name': {
+                'img_id': {
                     'type': 'string',
                     'empty': False,
                     'required': True
+                },
+                'type_': {
+                    'type': 'string',
+                    'empty': False,
+                    'required': True,
+                    'default': 'index'
                 },
                 'title': {
                     'type': 'string',

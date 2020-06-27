@@ -12,6 +12,7 @@ from .extras import *
 from .user import *
 from .document import *
 from .column import *
+from .media import *
 from .public_info import *
 
 
@@ -44,9 +45,10 @@ _api.add_resource(DocumentManager, '/document/<string:doc_id>')
 # _api.add_resource(ArticleUpdate, '/article/<int:article_id>/<string:attr>')
 
 
-# 首页管理相关
-_api.add_resource(BannerService, '/index/banner')
-# _api.add_resource(ColumnManager, '/b/<string:column_name>')
+# 媒体管理
+_api.add_resource(MediaManager, '/media/upload')
+_api.add_resource(BannersManager, '/media/banners')
+_api.add_resource(BannerManager, '/media/banner/<int:banner_id>')
 
 
 # 栏目相关

@@ -29,35 +29,6 @@ class PublicInfo(db.Model):
         return f"<PublicInfo '{self.key}'>"
 
 
-class BannerInfo(db.Model):
-    """ Banner存储
-    """
-    __tablename__ = "banner"
-
-    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    orders_id = db.Column(db.Integer, nullable=False, default=0)
-    type_ = db.Column(db.Integer, nullable=False, default=0)
-    title = db.Column(db.String(100), nullable=True)
-    img_name = db.Column(db.String(200), nullable=False)
-    link_url = db.Column(db.String(100), nullable=False, default="/")
-    description = db.Column(db.Text, nullable=True)
-    create_time = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    status = db.Column(db.String(100), nullable=False)
-
-    def to_json(self):
-        return {
-            'id': self.id,
-            'orders': self.id,
-            'title': self.title,
-            'description': self.description,
-            'img_name': self.img_name,
-            'create_time': self.create_time.strftime("%Y-%m-%d %H:%S:%M"),
-            'link_url': self.link_url,
-            'status': self.status
-        }
-
-    def __repr__(self):
-        return f"<BannerInfo '{self.title}'>"
 
 
 # class MediaInfo(db.Model):

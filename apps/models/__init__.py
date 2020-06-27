@@ -8,4 +8,5 @@
 from .document import *
 from .user import *
 from .column import *
+from .media import *
 from .public_info import *
