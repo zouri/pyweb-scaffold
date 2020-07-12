@@ -9,8 +9,8 @@ from uuid import uuid1
 from flask import request, session, abort, g
 
 from apps.main import ApiException
-from apps.models import Document
-from apps.dao.document import DocumentDao
+from .models import Document
+from .dao import DocumentDao
 
 
 Dao = DocumentDao()
@@ -76,18 +76,17 @@ class DocumentService:
             param = [Document.column_id == data['column_id']]
         else:
             param = []
-        # 排序字段
-        sort_field_str = data['sort']
-        if sort_field_str not in ['id', 'create_time', 'pub_time']:
-            sort_field_str = 'id'
-        sort_field_ = getattr(Document, sort_field_str)
 
         # 排序方式升序倒序
         if data['order'] == 'asc':
-            sort_by = getattr(sort_field_, 'asc')
+            sort_by = getattr(Document.create_time, 'asc')
         else:
-            sort_by = getattr(sort_field_, 'desc')
+            sort_by = getattr(Document.create_time, 'desc')
 
         doc_list = Dao.get_doc_list(param=param, sort_by=sort_by, offset=offset, limit=limit)
         doc_total = Dao.get_total_by_param(param)
         return doc_list, doc_total
+
+
+DocumentService = DocumentService()
+

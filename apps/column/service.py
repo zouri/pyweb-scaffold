@@ -8,7 +8,7 @@
 from flask import request, session, abort, g
 
 from apps.main import ApiException
-from apps.dao.column import ColumnDao
+from .dao import ColumnDao
 
 
 Dao = ColumnDao()
@@ -71,13 +71,27 @@ class ColumnService:
             return response_object
 
     def get_column_list(self):
-        # column_tree_data = Dao.get_child_column('root')
-        # column_tree_data = self.get_tree_column()
-        columns = Dao.get_child_column('root')
+        columns = Dao.get_child_column('document')
         data = [c.to_json() for c in columns]
         return data
 
-    def get_tree_column(self, parent_id='root', depth=1, data=None):
+    def get_user_column(self):
+        data = []
+        for c in Dao.get_child_column('document'):
+            data.append({
+              'name': c.id,
+              'parentId': 'document',
+              'id': c.id,
+              'meta': {
+                # 'icon': 'dashboard',
+                'title': c.title,
+              },
+              'component': 'RouteView',
+              'redirect': f'/document/{c.id}'
+            })
+        return data
+
+    def get_tree_column(self, parent_id=None, depth=1, data=None):
         """
         :param parent_id: 父栏目ID默认从根节点(root)目录开始
         :param depth: 递归深度, 1只代表显示根节点目录, 2代表根节点和根节点的子栏目, 依次递归, 默认1层
@@ -105,3 +119,6 @@ class ColumnService:
     #     if column_doc:
     #         return
     #     return True
+
+
+ColumnService = ColumnService()

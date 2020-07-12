@@ -5,15 +5,12 @@
 # Last Modified: x
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
-from flask import request, abort, g
-from flask_restful import Resource, marshal_with
+from flask import request, g
+from flask_restful import Resource
 
-from apps.validators import param_validator, DocumentVerifyModel
-from apps.service.document import DocumentService
-
-
-Service = DocumentService()
-VerifyModel = DocumentVerifyModel()
+from .validators import param_validator
+from .validators import DocumentVerifyModel as VerifyModel
+from .service import DocumentService as Service
 
 
 class DocumentsManager(Resource):

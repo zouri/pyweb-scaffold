@@ -5,18 +5,12 @@
 # Last Modified: x
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
-
-from flask import request, abort, g
+from flask import request, g
 from flask_restful import Resource, marshal_with
 
-from apps.validators import param_validator, ColumnsVerifyModel, Valid_IdList_Del
-from apps.serializers.column import ColumnSerialization
-from apps.service.column import ColumnService
-
-
-Service = ColumnService()
-VerifyModel = ColumnsVerifyModel()
-Serialize = ColumnSerialization()
+from .validators import *
+from .validators import ColumnVerifyModel as VerifyModel
+from .service import ColumnService as Service
 
 
 class ColumnsManager(Resource):

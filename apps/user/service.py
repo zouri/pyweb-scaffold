@@ -9,12 +9,11 @@ from uuid import uuid1
 from flask import request, session, g
 
 from apps.main import ApiException
-from apps.service.column import ColumnService
-from apps.dao.user import UserDao
+from apps.column.service import ColumnService as Service
+from .dao import UserDao
 
 
 Dao = UserDao()
-ColService = ColumnService()
 
 
 class UserService:
@@ -60,16 +59,16 @@ class UserService:
 
     # 获取菜单
     def get_nav_column(self):
-        col_list = ColService.get_tree_column()
+        col_list = Service.get_tree_column()
         nav_list = []
         for c in col_list:
             nav_list.append({
                 'id': c['id'],
                 'name': c['title'],
-                'parentId': 'document',
+                'parentId': c['parent_id'],
                 'path': f"/document/{c['id']}",
                 'meta': {
-                    'icon': 'file-text',
+                    # 'icon': 'file-text',
                     'title': c['title'],
                     'show': True,
                     'keepAlive': False
@@ -142,3 +141,5 @@ class UserService:
             g.user_info = user_info
         return user_info
 
+
+UserService = UserService()

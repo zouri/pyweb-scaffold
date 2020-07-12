@@ -8,11 +8,8 @@
 from flask import session
 from flask_restful import Resource
 
-from apps.service.extras import ExtrasService
+from .service import ExtrasService as Service
 from apps.utils.verify import *
-
-
-Service = ExtrasService()
 
 
 class ImageCode(Resource):

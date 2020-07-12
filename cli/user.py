@@ -8,21 +8,21 @@
 import click
 from flask.cli import AppGroup
 
-from apps.dao.user import UserDao
+from apps.user.dao import UserDao
 
 
 UDao = UserDao()
 
-user_cli = AppGroup('user')
+UserCli = AppGroup('user', help='用户管理')
 
 
-@user_cli.command('hello')
+@UserCli.command('hello')
 @click.option('--n', default=1)
 def hello(n):
     click.echo('hello' * n)
 
 
-@user_cli.command('create')
+@UserCli.command('create')
 @click.option('--u', prompt='User name', help='User name')
 @click.option('--p', hide_input=True, prompt='User password', help='User Password')
 @click.option('--e', prompt='User email', help='Mail address')
@@ -41,7 +41,7 @@ def create_user(u, p, e, r):
         print(f"create user {u} fail.")
 
 
-@user_cli.command('ch-passwd')
+@UserCli.command('ch-passwd')
 @click.option('--u', prompt='User name', help='User name')
 @click.option('--p', hide_input=True, prompt='New password', help='New Password')
 def create_user(u, p, e, r):

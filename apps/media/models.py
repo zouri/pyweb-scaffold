@@ -18,18 +18,42 @@ class MediaInfo(db.Model):
 
     id = db.Column(db.String(35), primary_key=True)
     type_ = db.Column(db.Integer, nullable=False)
-    file_name = db.Column(db.String(200), nullable=False)
-    file_path = db.Column(db.String(200), nullable=False)
-    description = db.Column(db.Text, nullable=True)
+    suffix = db.Column(db.String(10), nullable=False)
+    title = db.Column(db.Text, nullable=True)
+    file_dir = db.Column(db.String(200), nullable=False)
+    hash = db.Column(db.String(50), nullable=False)
+    reference = db.Column(db.Integer, nullable=False, default=1)
     create_time = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     @property
     def url(self):
-        return f"/static/upload_file/{self.file_path}/{self.file_name}"
+        return f"{self.file_dir}/{self.id}.{self.suffix}"
 
-    @url.setter
-    def url(self, content_html):
-        raise AttributeError('url: read-only field')
+    @property
+    def tb_url(self):
+        return f"{self.file_dir}/tb_{self.id}.{self.suffix}"
+
+    @property
+    def file_name(self):
+        return f"{self.id}.{self.suffix}"
+
+    @property
+    def incr_reference(self):
+        return f"<MediaInfo '{self.reference}'>"
+
+    @incr_reference.setter
+    def incr_reference(self, value=1):
+        self.reference += value
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'type': self.type_,
+            'url': self.url,
+            'tb_url': self.tb_url,
+            'title': self.title,
+            'create_time': self.create_time.strftime("%Y-%m-%d %H:%S:%M")
+        }
 
 
 class BannerInfo(db.Model):

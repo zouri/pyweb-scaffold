@@ -7,13 +7,12 @@
 #
 from flask import Blueprint
 from flask_restful import Api
-#
-from .extras import *
-from .user import *
-from .document import *
-from .column import *
-from .media import *
-from .public_info import *
+
+from apps.user.api import *
+from apps.document.api import *
+from apps.column.api import *
+from apps.media.api import *
+from apps.extras.api import *
 
 
 ApiManager = Blueprint('ApiManager', __name__, url_prefix='/apps/api')
@@ -33,7 +32,7 @@ _api.add_resource(UserRegister, '/user/register')
 _api.add_resource(UserInfo, '/user/<string:username>')
 
 # 获取菜单
-_api.add_resource(UserNav, '/user/nav')
+_api.add_resource(UserNavColumns, '/user/column/nav')
 
 
 # 文章相关
@@ -43,7 +42,8 @@ _api.add_resource(DocumentManager, '/document/<string:doc_id>')
 
 
 # 媒体管理
-_api.add_resource(MediaManager, '/media/upload')
+_api.add_resource(MediaManager, '/media')
+_api.add_resource(MediaUpload, '/media/upload')
 _api.add_resource(BannersManager, '/media/banners')
 _api.add_resource(BannerManager, '/media/banner/<int:banner_id>')
 

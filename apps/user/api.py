@@ -6,15 +6,11 @@
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
 from flask import request, g
-from flask_restful import Resource, marshal_with, reqparse, abort
+from flask_restful import Resource
 
-from apps.validators import param_validator, UserVerifyModel
-from apps.service.user import UserService
-from apps.serializers.user import UserSerialization
-
-
-Service = UserService()
-VerifyModel = UserVerifyModel()
+from .validators import param_validator
+from .validators import UserVerifyModel as VerifyModel
+from .service import UserService as Service
 
 
 class UserLogin(Resource):
@@ -68,7 +64,7 @@ class UserInfo(Resource):
 
 
 # 用户菜单
-class UserNav(Resource):
+class UserNavColumns(Resource):
 
     def get(self):
         # 未做限制,返回所有栏目

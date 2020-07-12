@@ -8,7 +8,8 @@
 from sqlalchemy import or_, and_
 
 from apps.main import db
-from apps.models import Column, Document
+from apps.document.models import Document
+from .models import Column
 
 
 class ColumnDao:
@@ -43,13 +44,16 @@ class ColumnDao:
         """
         return Column.query.filter_by(id=column_id).first()
 
-    def get_child_column(self, parent_id):
+    def get_child_column(self, parent_id=None):
         """
         获取子栏目列表
         :param parent_id: 父栏目ID
         :return: 返回子栏目对象列表
         """
-        return Column.query.filter_by(parent_id=parent_id).all()
+        if parent_id is None:
+            return Column.query.all()
+        else:
+            return Column.query.filter_by(parent_id=parent_id).all()
 
     @staticmethod
     def save_changes(data=None):
@@ -70,7 +74,7 @@ class ColumnDao:
         :param parent_id: 父栏目
         :return:
         """
-        print(id_, title, parent_id)
+        # print(id_, title, parent_id)
         col = Column.query.filter(
             or_(
                 Column.id == id_,

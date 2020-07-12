@@ -7,7 +7,7 @@
 #
 from flask import Blueprint, render_template
 
-from apps.dao.document import DocumentDao
+from apps.document.dao import DocumentDao
 
 IndexBp = Blueprint('Index', __name__)
 

@@ -10,7 +10,7 @@ from datetime import datetime
 from flask import session, g
 
 from apps.main import db
-from apps.models import Document
+from .models import Document
 
 
 class DocumentDao:

@@ -9,15 +9,11 @@ from functools import wraps
 
 from flask import request, g
 from cerberus import Validator
-import traceback
 
 from apps.main import ApiException
-from .user import *
-from .column import *
-from .document import *
-from .public_info import *
 
 
+# 通用模型
 Valid_IdList_Del = {
     'expected_data': {
         'type': 'list',

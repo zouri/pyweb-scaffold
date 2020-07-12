@@ -7,10 +7,10 @@
 #
 import os
 
-from flask import request, jsonify
+from flask import jsonify
 
 from apps.main import create_app, before_process, after_process, ApiException
-from apps.start_inspection.check_db import check_super_admin
+
 from apps.views import register_front_blueprints
 from apps.api import register_apis_blueprints
 

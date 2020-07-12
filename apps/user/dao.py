@@ -7,7 +7,7 @@
 #
 from flask import session
 from apps.main import db
-from apps.models import User
+from .models import User
 
 
 class UserDao:

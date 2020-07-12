@@ -10,7 +10,6 @@ from sqlalchemy import UniqueConstraint
 from apps.main import db
 
 
-
 class Column(db.Model):
     """ 企业动态
     """

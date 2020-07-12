@@ -11,10 +11,8 @@ import json
 from flask import current_app as _app
 from flask import request, session, abort, jsonify
 
-from apps.service.user import UserService
+from apps.user.service import UserService
 from .router import ApiManager
-
-UserService = UserService()
 
 
 # 注册api

@@ -5,10 +5,9 @@
 # Last Modified: x
 # e6b0b8e8bf9ce5b9b4e8bdbbefbc8ce6b0b8e8bf9ce783ade6b3aae79b88e79cb6
 #
-from flask import current_app as _app
-
+from sqlalchemy import String
 from apps.main import db
-from apps.models import PublicInfo, BannerInfo, MediaInfo
+from .models import BannerInfo, MediaInfo
 
 
 class MediaDao:
@@ -22,8 +21,10 @@ class MediaDao:
         new_file = MediaInfo(
             id=data['id'],
             type_=1,
-            file_name=data['file_name'],
-            file_path=data['file_path'],
+            suffix=data['suffix'],
+            title=data['title'],
+            file_dir=data['file_dir'],
+            hash=data['hash'],
             create_time=data['create_time'],
         )
         self.save_change(new_file)
@@ -61,6 +62,11 @@ class MediaDao:
         sort_by = BannerInfo.order_id.asc
         return BannerInfo.query.filter(BannerInfo.type_ == type_).order_by(sort_by()).all()
 
+    def get_media_list(self, param=None, sort_by=None, offset=0, limit=15):
+        if param is None:
+            param = []
+        return MediaInfo.query.filter(*param).order_by(sort_by()).slice(offset, limit).all()
+
     def get_media_by_id(self, file_id):
         return MediaInfo.query.filter(MediaInfo.id == file_id).first()
 
@@ -69,6 +75,11 @@ class MediaDao:
 
     def get_banner_by_media(self, file_id):
         return BannerInfo.query.filter(BannerInfo.img_id == file_id).first()
+
+    def get_total_by_param(self, param=None):
+        if param is None:
+            param = []
+        return MediaInfo.query.filter(*param).count()
 
     @staticmethod
     def save_change(data=None):

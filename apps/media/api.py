@@ -8,27 +8,37 @@
 from flask import request, g
 from flask_restful import Resource
 
-from apps.validators import param_validator, PublicInfoVerifyModel, Valid_IdList_Del
-from apps.service.media import MediaService
-
-
-Service = MediaService()
+from .validators import *
+from .service import MediaService as Service
 
 
 class MediaManager(Resource):
-    # def get(self):
-    #     return Service.get_banner()
+
+    @param_validator(MediaVerifyModel.get_media)
+    def get(self):
+        data = g.norm_data
+        media_list, media_total = Service.get_media(data)
+        response_object = {
+            'total': media_total,
+            'resources': [d.to_json() for d in media_list]
+        }
+        return response_object
+
+
+class MediaUpload(Resource):
 
     def post(self):
         img_data = request.files['file']
-        return Service.upload_file(img_data)
+        print(img_data.filename)
+        return Service.upload_images(img_data)
+
 
 
 class BannersManager(Resource):
     def get(self):
         return Service.get_banner()
 
-    @param_validator(PublicInfoVerifyModel.add_banner)
+    @param_validator(MediaVerifyModel.add_banner)
     def post(self):
         data = g.norm_data
         return Service.add_banner(data)
@@ -44,7 +54,7 @@ class BannerManager(Resource):
         res_data = Service.get_a_banner(banner_id)
         return res_data.to_json()
 
-    @param_validator(PublicInfoVerifyModel.add_banner)
+    @param_validator(MediaVerifyModel.add_banner)
     def put(self, banner_id):
         data = g.norm_data
         res_data = Service.update_banner(banner_id, data)
