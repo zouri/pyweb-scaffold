@@ -30,8 +30,7 @@ class MediaUpload(Resource):
     def post(self):
         img_data = request.files['file']
         print(img_data.filename)
-        return Service.upload_images(img_data)
-
+        return Service.upload_file(img_data)
 
 
 class BannersManager(Resource):

@@ -26,6 +26,10 @@ class BaseConfig:
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # 文件类型
+    ALLOW_FILE_TYPE_P = ['jpg', 'png', 'jpeg', 'gif']
+    ALLOW_FILE_TYPE_V = ['mp4', 'mov', 'avi', 'mkv', 'flv', 'webm']
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True

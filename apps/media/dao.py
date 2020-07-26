@@ -20,7 +20,7 @@ class MediaDao:
         """
         new_file = MediaInfo(
             id=data['id'],
-            type_=1,
+            type_=data['type_'],
             suffix=data['suffix'],
             title=data['title'],
             file_dir=data['file_dir'],

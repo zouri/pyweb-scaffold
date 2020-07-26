@@ -13,5 +13,6 @@ migrate = Migrate(app, db)
 register_cli(app)
 
 
-
+if __name__ == "__main__":
+    app.run()
 

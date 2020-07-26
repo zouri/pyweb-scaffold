@@ -31,7 +31,7 @@ class MediaInfo(db.Model):
 
     @property
     def tb_url(self):
-        return f"{self.file_dir}/tb_{self.id}.{self.suffix}"
+        return f"{self.file_dir}/tb_{self.id}.png"
 
     @property
     def file_name(self):
