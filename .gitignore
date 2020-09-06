@@ -1,8 +1,25 @@
-/.idea/
-/.pyenv/
+### Python template
+*.log
+*.http
 *.pyc
-*.logs
-#*.md
-/test/
-/migrations/
-/static/upload_file/*
+test/
+__pycache__
+migrations/
+*/migrations/*
+
+
+# Editor directories and files
+.DS_Store
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+#
+mytest/
+static/upload_file/
+
